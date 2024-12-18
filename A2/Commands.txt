@@ -1,0 +1,20 @@
+# Generate a private key
+openssl genrsa -out private_key.pem 2048
+
+# Extract the public key from the private key
+openssl rsa -in private_key.pem -pubout -out public_key.pem
+
+# Create a Certificate Signing Request (CSR)
+openssl req -new -key private_key.pem -out certificate_request.csr
+
+# Generate a self-signed certificate
+openssl x509 -req -in certificate_request.csr -signkey private_key.pem -out self_signed_certification.crt -days 365
+
+# Generate a private key for the Certification Authority (CA)
+openssl genrsa -out ca_private_key.pem 2048
+
+# Create a CA certificate
+openssl req -x509 -new -nodes -key ca_private_key.pem -sha256 -days 365 -out ca_certificate.pem
+
+# Verify the issued certificate
+openssl verify -CAfile ca_certificate.pem issued_certificate.crt
